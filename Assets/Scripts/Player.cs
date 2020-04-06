@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     {
         if (!untouchable)
         {
-            if (collision.GetComponent<Enemy>() != null || collision.GetComponent<Player>() != null)
+            if ((collision.GetComponent<Boss>() != null && !collision.GetComponent<BossMovement>().IsImmortal())  || collision.GetComponent<Enemy>() != null || collision.GetComponent<Player>() != null)
             {
                 health--;
                 GetComponent<PlayerMovement>().Knockback();

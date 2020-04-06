@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7619105846505115314}
   - component: {fileID: -7878157408558747299}
   m_Layer: 10
-  m_Name: Dart
+  m_Name: Dart Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7619105846505115315}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000005066394}
   m_LocalPosition: {x: 0, y: 2.51, z: 0}
-  m_LocalScale: {x: 0.2475, y: 0.6625, z: 1}
+  m_LocalScale: {x: 0.468864, y: 1.25504, z: 1.8944}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180.00002}
 --- !u!212 &7619105846505115276
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  followPlayer: 1
+  followPlayer: 0
 --- !u!50 &-7878157408558747299
 Rigidbody2D:
   serializedVersion: 4

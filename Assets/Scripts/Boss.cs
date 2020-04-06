@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     public int health = 10;
-    public Enemy enemy;
-    public HornetShoot hornetShoot;
+    public BossMovement boss;
     public GameObject healthBar;
     public Gradient gradientHealthBar;
     public Image fillHealthBar;
@@ -21,47 +20,46 @@ public class Boss : MonoBehaviour
         slider.maxValue = health;
         slider.value = health;
         fillHealthBar.color = gradientHealthBar.Evaluate(slider.normalizedValue);
-        Phase1();
     }      
 
     private void CheckPhase()
     {
         if(health == 5)
         {
-            Phase2();
+            boss.Transition1();
         }
         else if(health == 2)
         {
-            Phase3();
+            boss.Transition2();
         }
         else if(health == 0)
         {
-            Death();
+            boss.Death();
         }
     }
 
-    private void Phase1()
+    /*private void Phase1()
     {
-        enemy.SetMoveSpeed(5);
+        boss.SetMoveSpeed(5);
         hornetShoot.SetFireRate(2);
     }
 
     private void Phase2()
     {
-        enemy.SetMoveSpeed(10);
+        boss.SetMoveSpeed(10);
         hornetShoot.SetFireRate(2);
     }
 
     private void Phase3()
     {
-        enemy.SetMoveSpeed(10);
+        boss.SetMoveSpeed(10);
         hornetShoot.SetFireRate(1);
     }
 
     private void Death()
     {
         Destroy(gameObject);
-    }
+    }*/
 
     public void TakeHit()
     {

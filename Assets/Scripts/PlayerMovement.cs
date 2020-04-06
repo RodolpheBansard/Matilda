@@ -65,11 +65,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!isAlive)
-        {            
+        {
+            horizontalMove = 0;
             animator.SetBool("Jump", false);
-            GetComponent<Rigidbody2D>().Sleep();
-            GetComponent<Rigidbody2D>().WakeUp();
+            GetComponent<Rigidbody2D>().Sleep();            
             GetComponent<Rigidbody2D>().gravityScale = 30;
+            GetComponent<Rigidbody2D>().WakeUp();
         }
     }
 
@@ -111,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
 
         foreach(Collider2D enemy in hitEnemies)
         {
-            if (enemy.GetComponent<Boss>() != null)
+            if (enemy.GetComponent<Boss>() != null && !enemy.GetComponent<BossMovement>().IsImmortal())
                 enemy.GetComponent<Boss>().TakeHit();
             else
                 Destroy(enemy.gameObject,0.2f);
@@ -120,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         hitEnemies = Physics2D.OverlapCircleAll(AttackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemy in hitEnemies)
         {
-            if (enemy.GetComponent<Boss>() != null)
+            if (enemy.GetComponent<Boss>() != null && !enemy.GetComponent<BossMovement>().IsImmortal())
                 enemy.GetComponent<Boss>().TakeHit();
             else
                 Destroy(enemy.gameObject);
