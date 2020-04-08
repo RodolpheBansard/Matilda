@@ -119,7 +119,11 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
+  particlePrefab: {fileID: 0}
   moveSpeed: 3
+  item: {fileID: 0}
+  deathSound: {fileID: 0}
+  volumeSound: 0
 --- !u!61 &6414915862487595323
 BoxCollider2D:
   m_ObjectHideFlags: 0

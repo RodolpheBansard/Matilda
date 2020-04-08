@@ -7,11 +7,13 @@ public class HornetShoot : MonoBehaviour
     public GameObject dartPrefab;
     public Transform firePoint;
     public Animator animator;
+    public AudioClip shootSound;
 
     public float fireRate = 2;
     private bool running=false;
     private IEnumerator shootCoroutine;
     private float localScaleX;
+    private bool stop = false;
 
     private void Start()
     {
@@ -29,6 +31,11 @@ public class HornetShoot : MonoBehaviour
         {
             transform.localScale = new Vector3(localScaleX, transform.localScale.y, transform.localScale.z);
         }
+    }
+
+    public void SetStopShoot()
+    {
+        stop = true;
     }
 
     public void SetFireRate(float fireRate)
@@ -60,10 +67,21 @@ public class HornetShoot : MonoBehaviour
     {
         while (true)
         {
-            animator.SetTrigger("Attack");
-            yield return new WaitForSeconds(0.2f);
-            Instantiate(dartPrefab, firePoint.position, firePoint.rotation);
-            yield return new WaitForSeconds(Random.Range(fireRate-fireRate/2, fireRate + fireRate / 2));
+            
+            
+            
+            if (!stop)
+            {
+                yield return new WaitForSeconds(0.2f);
+                animator.SetTrigger("Attack");
+                Instantiate(dartPrefab, firePoint.position, firePoint.rotation);
+                AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
+            }
+            
+            yield return new WaitForSeconds(Random.Range(fireRate - fireRate / 2, fireRate + fireRate / 2));
+
+            
+           
         }
         
     }

@@ -23,15 +23,19 @@ public class Player : MonoBehaviour
             animator.SetBool("isAlive", false);
             GetComponent<PlayerMovement>().SetIsAlive(false);
             untouchable = true;
+            FindObjectOfType<Scene>().ReloadScene();
         }
-
-        for (int i = 0; i < hearts.Length; i++)
+        
         {
-            if (i < health)
-                hearts[i].sprite = fullHeart;
-            else
-                hearts[i].sprite = emptyHeart;
+            for (int i = 0; i < hearts.Length; i++)
+            {
+                if (i < health)
+                    hearts[i].sprite = fullHeart;
+                else
+                    hearts[i].sprite = emptyHeart;
+            }
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,12 +47,15 @@ public class Player : MonoBehaviour
     {
         if (!untouchable)
         {
-            if ((collision.GetComponent<Boss>() != null && !collision.GetComponent<BossMovement>().IsImmortal())  || collision.GetComponent<Enemy>() != null || collision.GetComponent<Player>() != null)
+            
+            if (collision.GetComponent<Boss>() != null || collision.GetComponent<Enemy>() != null || collision.GetComponent<Player>() != null)
             {
                 health--;
                 GetComponent<PlayerMovement>().Knockback();
                 StartCoroutine(Untouchable());
             }
+            
+            
         }
     }
 
@@ -62,6 +69,11 @@ public class Player : MonoBehaviour
         untouchable = true;
         yield return new WaitForSeconds(0.5f);
         untouchable = false;
+    }
+
+    public void SetUntouchable(bool value)
+    {
+        untouchable = value;
     }
 
 }

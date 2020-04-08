@@ -19,9 +19,13 @@ public class BossMovement : MonoBehaviour
     public HornetShoot hornet;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
+    public Player player;
 
     public Color colorPhase2;
     public Color colorPhase3;
+    public GameObject particlePrefab;
+    public AudioClip deathSound;
+    public AudioClip transitionSound;    
 
     public Transform transitionPoint;
     public List<Transform> entrance;
@@ -34,7 +38,6 @@ public class BossMovement : MonoBehaviour
     private List<Transform> currentPath;
     private bool stop = false;
     private bool transitioning = false;
-    private bool immortal = true;
     private Phase phase;
     private int nCoroutine = 0;
 
@@ -110,14 +113,10 @@ public class BossMovement : MonoBehaviour
         
     }
 
-    public bool IsImmortal()
-    {
-        return immortal;
-    }
+    
 
     public void Phase1()
     {
-        immortal = false;
         phase = Phase.phase1;
         hornet.ShootPlayer(true);
         currentPath = phase1Phase2;
@@ -129,7 +128,7 @@ public class BossMovement : MonoBehaviour
 
     public void Phase2()
     {
-        immortal = false;
+        player.SetUntouchable(false);
         nCoroutine = 0;
         transitioning = false;
         currentIndex = 2;
@@ -140,18 +139,18 @@ public class BossMovement : MonoBehaviour
 
     public void Phase3()
     {
-        immortal = false;
+        player.SetUntouchable(false);
         nCoroutine = 0;
         hornet.ShootPlayer(true);
         transitioning = false;
         currentPath = phase3;
         moveSpeed = 10;
-        hornet.SetFireRate(1);
+        hornet.SetFireRate(2);
     }
 
     public void Transition1()
     {
-        immortal = true;
+        player.SetUntouchable(true);
         hornet.ShootPlayer(false);
         phase = Phase.transition1;
         moveSpeed = 20;
@@ -160,7 +159,7 @@ public class BossMovement : MonoBehaviour
 
     public void Transition2()
     {
-        immortal = true;
+        player.SetUntouchable(true);
         hornet.ShootPlayer(false);
         phase = Phase.transition2;
         moveSpeed = 20;
@@ -169,7 +168,7 @@ public class BossMovement : MonoBehaviour
 
     public void Death()
     {
-        immortal = true;
+        player.SetUntouchable(true);
         phase = Phase.death;
         transitioning = true;
     }
@@ -177,12 +176,13 @@ public class BossMovement : MonoBehaviour
     IEnumerator Entrance()
     {
         Phase1();
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.5f);
         stop = false;
     }
 
     IEnumerator WaitEndAnimationT1()
     {
+        AudioSource.PlayClipAtPoint(transitionSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
         yield return new WaitForSeconds(2);
         salve.LaunchSalve(2);
         Phase2();
@@ -190,15 +190,20 @@ public class BossMovement : MonoBehaviour
 
     IEnumerator WaitEndAnimationT2()
     {
+        AudioSource.PlayClipAtPoint(transitionSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
         yield return new WaitForSeconds(2);
-        salve.LaunchSalve(10);
+        salve.LaunchSalve(5);
         Phase3();
     }
 
     IEnumerator WaitDeath()
     {
+        hornet.SetStopShoot();
         yield return new WaitForSeconds(2);
+        AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
+        FindObjectOfType<Scene>().BossKilled();
     }
 
 }

@@ -7,6 +7,8 @@ public class Item : MonoBehaviour
     public List<Enemy> guardians;
     public bool heart = false;
     public bool doubleJump = false;
+    public AudioClip powerupSound;
+    public Animator playerAnimator;
 
     private int guardiansLeft;
 
@@ -19,10 +21,14 @@ public class Item : MonoBehaviour
             if (heart)
             {
                 collision.GetComponent<Player>().Healing();
+                AudioSource.PlayClipAtPoint(powerupSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
             }
             else if (doubleJump)
             {
                 collision.GetComponent<PlayerMovement>().canDoubleJump = true;
+                AudioSource.PlayClipAtPoint(powerupSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
+                playerAnimator.SetTrigger("GetDoubleJump");
+                playerAnimator.SetBool("hasDoubleJump", true);
             }
         }
     }

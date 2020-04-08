@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd0faa7ba7b00849b08c6d0630d47da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 4222316861692034417, guid: 87348f66e5b6857498f61c30ce92bbcb,
+    type: 3}
   speed: 10
   followPlayer: 0
 --- !u!50 &-7878157408558747299

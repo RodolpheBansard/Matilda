@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Dart : MonoBehaviour
 {
+    public GameObject particlePrefab;
     public float speed = 5;
     public bool followPlayer;
 
@@ -39,5 +40,6 @@ public class Dart : MonoBehaviour
             collision.GetComponent<Player>().TakeHit(collision);
         }
         Destroy(gameObject);
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
     }
 }

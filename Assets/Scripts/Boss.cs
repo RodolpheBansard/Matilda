@@ -10,12 +10,16 @@ public class Boss : MonoBehaviour
     public GameObject healthBar;
     public Gradient gradientHealthBar;
     public Image fillHealthBar;
+    public AudioClip hurtSound;
+    public Animator playerAnimator;
 
     private bool untouchable = false;
     private Slider slider;
 
     private void Start()
     {
+        playerAnimator.SetTrigger("GetDoubleJump");
+        playerAnimator.SetBool("hasDoubleJump", true);
         slider = healthBar.GetComponent<Slider>();
         slider.maxValue = health;
         slider.value = health;
@@ -38,33 +42,11 @@ public class Boss : MonoBehaviour
         }
     }
 
-    /*private void Phase1()
-    {
-        boss.SetMoveSpeed(5);
-        hornetShoot.SetFireRate(2);
-    }
-
-    private void Phase2()
-    {
-        boss.SetMoveSpeed(10);
-        hornetShoot.SetFireRate(2);
-    }
-
-    private void Phase3()
-    {
-        boss.SetMoveSpeed(10);
-        hornetShoot.SetFireRate(1);
-    }
-
-    private void Death()
-    {
-        Destroy(gameObject);
-    }*/
-
     public void TakeHit()
     {
         if (!untouchable)
         {
+            AudioSource.PlayClipAtPoint(hurtSound, Camera.main.transform.position + new Vector3(0, 0, 5), 1);
             health--;
             slider.value = health;
             fillHealthBar.color = gradientHealthBar.Evaluate(slider.normalizedValue);

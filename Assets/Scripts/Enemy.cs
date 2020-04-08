@@ -5,8 +5,10 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public List<Transform> waypoints;
+    public GameObject particlePrefab;
     public float moveSpeed = 3;
     public Item item = null;
+    public AudioClip deathSound;
 
     private int currentIndex = 0;
     private bool launch = false;
@@ -58,9 +60,12 @@ public class Enemy : MonoBehaviour
 
     private void OnDestroy()
     {
-        if(item != null)
+        AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position + new Vector3(0,0,5),1);
+        Instantiate(particlePrefab, transform.position, Quaternion.identity);
+        if (item != null)
         {
-            item.GuardianKilled();
+            item.GuardianKilled();   
+            
         }
     }
 }

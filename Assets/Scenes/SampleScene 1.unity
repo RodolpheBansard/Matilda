@@ -696,7 +696,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -119890271
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -3904025955689030046, guid: 303f3c74ce0c9cb44840ea10380a2a5c,
     type: 3}
@@ -770,6 +770,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 399188676}
   m_CeilingCheck: {fileID: 1586935275}
   m_CrouchDisableCollider: {fileID: 0}
+  jumpSound: {fileID: 0}
   OnLandEvent:
     m_PersistentCalls:
       m_Calls:
@@ -820,7 +821,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 2.56, y: 2.56}
     newSize: {x: 2, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -847,8 +848,13 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
+  attackSound: {fileID: 0}
+  doubleJumpSound: {fileID: 0}
+  HurtSound: {fileID: 0}
+  canDoubleJump: 0
   attackRange: 1.2
   runSpeed: 30
+  doubleJumpForce: 20
 --- !u!114 &137538049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,7 +979,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -644060425
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 7022517430071225554, guid: 806464192a4757f409e0f8472d5d18b1,
     type: 3}
@@ -1035,7 +1041,10 @@ MonoBehaviour:
   waypoints:
   - {fileID: 491619756}
   - {fileID: 1431676666}
+  particlePrefab: {fileID: 0}
   moveSpeed: 3
+  item: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!61 &209006193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1053,7 +1062,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -1392,7 +1401,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2037826331
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 3.0008547, y: 0.5, z: 0}
@@ -2564,7 +2573,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -644060425
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 5408752419300056171, guid: 7000739d08c59304a959d01cc22490c9,
     type: 3}
@@ -2627,7 +2636,10 @@ MonoBehaviour:
   waypoints:
   - {fileID: 2001937705}
   - {fileID: 2001937705}
+  particlePrefab: {fileID: 0}
   moveSpeed: 6
+  item: {fileID: 0}
+  deathSound: {fileID: 0}
 --- !u!61 &576904737
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2645,7 +2657,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 2.001955, y: 2}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -2669,6 +2681,9 @@ MonoBehaviour:
   dartPrefab: {fileID: 7619105846505115315, guid: e951bf96dbc62c0428c4063671c2dc4c,
     type: 3}
   firePoint: {fileID: 1888412940}
+  animator: {fileID: 0}
+  shootSound: {fileID: 0}
+  fireRate: 2
 --- !u!1 &637548851
 GameObject:
   m_ObjectHideFlags: 0
